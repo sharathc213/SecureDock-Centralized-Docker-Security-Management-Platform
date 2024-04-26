@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from server.settings import SERVER_PORT
 
 def main():
     """Run administrative tasks."""
@@ -15,7 +15,7 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    execute_from_command_line(sys.argv)
+    execute_from_command_line(['manage.py', 'runserver', f'0.0.0.0:{SERVER_PORT}'])
 
 
 if __name__ == '__main__':
