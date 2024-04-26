@@ -1,0 +1,288 @@
+
+{% extends 'Main.html' %} {% block Main %}{% load static %}
+
+
+		<!--begin::Main-->
+		<!--begin::Root-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Page-->
+			<div class="page d-flex flex-row flex-column-fluid">
+				<!--begin::Wrapper-->
+				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+
+	{% include 'hedder.html' %}
+	<!--begin::Main-->
+					<div class="d-flex flex-column flex-column-fluid">
+						<!--begin::Content-->
+						<div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
+							<!--begin::Container-->
+							<div class="container">
+						
+								<!--begin::Row-->
+								<div class="row g-0 g-xl-5 g-xxl-8">
+									<div class="col-xl-4">
+										<!--begin::Stats Widget 1-->
+										<div class="card card-stretch mb-5 mb-xxl-8">
+											<!--begin::Header-->
+											<div class="card-header align-items-center border-0 mt-5">
+												<h3 class="card-title align-items-start flex-column">
+													<span class="fw-bolder text-dark fs-3">Scan Result</span>
+													<span class="text-muted mt-2 fw-bold fs-6">{{ chart1.TOTAL  }}</span>
+												</h3>
+											
+											</div>
+											<!--end::Header-->
+											<!--begin::Body-->
+											<div class="card-body pt-12">
+												<!--begin::Chart-->
+												<div class="d-flex flex-center position-relative bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-center h-175px" style="background-image:url('{% static 'assets/media/svg/illustrations/bg-1.svg' %})">
+													<div class="fw-bolder fs-1 text-gray-800 position-absolute">{{ chart1.TOTAL  }}</div>
+													<canvas id="kt_stats_widget_1_chart"></canvas>
+												</div>
+												<!--end::Chart-->
+												<!--begin::Items-->
+												<div class="d-flex justify-content-around pt-18">
+													<!--begin::Item-->
+													<div class="">
+														<span class="fw-bolder text-gray-800">{{ chart1.WARN }}% WARN</span>
+														<span class="bg-danger w-25px h-5px d-block rounded mt-1"></span>
+													</div>
+													<!--end::Item-->
+													<!--begin::Item-->
+													<div class="">
+														<span class="fw-bolder text-gray-800">{{ chart1.PASS }}% PASS</span>
+														<span class="bg-primary w-25px h-5px d-block rounded mt-1"></span>
+													</div>
+													<!--end::Item-->
+													<!--begin::Item-->
+													<div class="">
+														<span class="fw-bolder text-gray-800">{{ chart1.NOTE }}% NOTE</span>
+														<span class="bg-warning w-25px h-5px d-block rounded mt-1"></span>
+													</div>
+														<div class="">
+														<span class="fw-bolder text-gray-800">{{ chart1.INFO }}% INFO</span>
+														<span class="bg-info w-25px h-5px d-block rounded mt-1"></span>
+													</div>
+													<!--end::Item-->
+												</div>
+												<!--end::Items-->
+											</div>
+											<!--end: Card Body-->
+										</div>
+										<!--end::Stats Widget 1-->
+									</div>
+									<div class="col-xl-8">
+										<!--begin::Stats Widget 2-->
+										<div class="card card-stretch mb-5 mb-xxl-8">
+											<!--begin::Header-->
+											<div class="card-header align-items-center border-0 mt-5">
+												<h3 class="card-title align-items-start flex-column">
+													<span class="fw-bolder text-dark fs-3">Security Checks</span>
+													<span class="text-muted mt-2 fw-bold fs-6">7 Checks</span>
+												</h3>
+											
+											</div>
+											<!--end::Header-->
+											<!--begin::Body-->
+											<div class="card-body pt-0">
+												<div class="d-flex flex-wrap flex-xxl-nowrap justify-content-center justify-content-md-start pt-4">
+													<!--begin::Nav-->
+													<div class="me-sm-10 me-0">
+														<ul class="nav flex-column nav-pills nav-pills-custom">
+
+											{% for data in chart2 %}
+													<li class="nav-item mb-3">
+																<a class="nav-link {% if data.ID == '1' %} active{% endif %} w-230px h-45px" data-bs-toggle="pill" id="kt_stats_widget_2_tab_{{ data.ID }}" href="#kt_stats_widget_2_tab_{{ data.ID }}_content">
+																
+																	<div class="ps-1">
+																		<span class="nav-text text-gray-600 fw-bolder fs-6">{{ data.DESC }}</span>
+																		
+																	</div>
+																</a>
+															</li>
+
+											{% endfor %}
+
+
+
+													
+														</ul>
+													</div>
+													<!--end::Nav-->
+													<!--begin::Tab Content-->
+													<div class="tab-content flex-grow-1">
+
+												{% for data in chart2 %}
+														<!--begin::Tab Pane {{ data.ID }}-->
+														<div class="tab-pane{% if data.ID == '1' %} fade show active{% endif %}" id="kt_stats_widget_2_tab_{{ data.ID }}_content">
+															<!--begin::Content-->
+															<div class="d-flex justify-content-center mb-10">
+																<!--begin::Item-->
+																<div class="px-10">
+																	<span class="text-muted fw-bold fs-7">WARN</span>
+																	<span class="text-gray-800 fw-bolder fs-3 d-block">{{ data.WARN }}</span>
+																</div>
+																<!--end::Item-->
+																<!--begin::Item-->
+																<div class="px-10">
+																	<span class="text-muted fw-bold fs-7">PASS</span>
+																	<span class="text-gray-800 fw-bolder fs-3 d-block">{{ data.PASS }}</span>
+																</div>
+																<!--end::Item-->
+																<!--begin::Item-->
+																<div class="px-10">
+																	<span class="text-muted fw-bold fs-7">NOTE</span>
+																	<span class="text-gray-800 fw-bolder fs-3 d-block">{{ data.NOTE }}</span>
+																</div>
+																<div class="px-10">
+																	<span class="text-muted fw-bold fs-7">INFO</span>
+																	<span class="text-gray-800 fw-bolder fs-3 d-block">{{ data.INFO }}</span>
+																</div>
+																<!--end::Item-->
+															</div>
+															<!--end::Content-->
+															<!--begin::Chart-->
+															<div id="kt_stats_widget_2_chart_{{ data.ID }}" style="height: 250px"></div>
+															<!--end::Chart-->
+														</div>
+														<!--end::Tab Pane 1-->
+														{% endfor %}
+
+
+													
+												
+													
+													</div>
+													<!--end::Tab Content-->
+												</div>
+											</div>
+											<!--end: Card Body-->
+										</div>
+										<!--end::Stats Widget 2-->
+									</div>
+								</div>
+								<!--end::Row-->
+								<!--begin::Row-->
+								<div class="row g-0 g-xl-5 g-xxl-8">
+									
+									<div class="col-xl-12">
+										<!--begin::Table Widget 2-->
+										<div class="card card-stretch mb-5 mb-xxl-8">
+											<!--begin::Header-->
+											<div class="card-header border-0 pt-5">
+												<h3 class="card-title align-items-start flex-column">
+													<span class="card-label fw-bolder text-dark fs-3">Detailed View</span>
+												
+												</h3>
+												<div class="card-toolbar">
+													<ul class="nav nav-pills nav-pills-sm nav-light">
+														{% for data in chart2 %}
+														<li class="nav-item">
+															<a class="nav-link btn btn-active-light btn-color-muted py-2 px-4{% if data.ID == '1' %} active{% endif %} fw-bolder me-2" data-bs-toggle="tab" href="#kt_tab_pane_2_{{ data.ID }}">{{ data.DESC }}</a>
+														</li>
+													{% endfor %}
+
+													
+													</ul>
+												</div>
+											</div>
+											<!--end::Header-->
+											<!--begin::Body-->
+											<div class="card-body pt-3 pb-0 mt-n3">
+												<div class="tab-content mt-4" id="myTabTables2">
+														{% for data in chart2 %}
+													<!--begin::Tap pane-->
+													<div class="tab-pane{% if data.ID == '1' %} fade show active{% endif %}" id="kt_tab_pane_2_{{ data.ID }}" role="tabpanel" aria-labelledby="kt_tab_pane_2_{{ data.ID }}">
+														<!--begin::Table-->
+														<div class="table-responsive">
+															<table class="table table-borderless align-middle">
+																<thead>
+																	<tr>
+																		<th class="p-0 w-50px"></th>
+																		<th class="p-0 min-w-150px"></th>
+																		
+																	</tr>
+																</thead>
+																<tbody>
+																	{% for item in data.RESULT %}
+																	<tr>
+																		<td class="px-0 py-3">
+																			<div class="symbol symbol-55px mt-1 me-5">
+																			{% if item.result == 'WARN' %}	
+																			  <button disabled class="btn btn-icon btn-light-danger fw-bolder pulse pulse-danger" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="kt_activities_toggle">
+                        <span class="position-absolute fs-6">{{ item.result}}</span>
+                        <span class="pulse-ring"></span>
+                    </button>
+                    {% elif item.result == 'PASS' %}
+
+                      <button disabled class="btn btn-icon btn-light-success fw-bolder pulse pulse-success" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="kt_activities_toggle">
+                        <span class="position-absolute fs-6">{{ item.result}}</span>
+                        <span class="pulse-ring"></span>
+                    </button>
+
+                           {% elif item.result == 'INFO' %}
+
+                      <button disabled class="btn btn-icon btn-light-info fw-bolder pulse pulse-info" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="kt_activities_toggle">
+                        <span class="position-absolute fs-6">{{ item.result}}</span>
+                        <span class="pulse-ring"></span>
+                    </button>
+                        {% elif item.result == 'NOTE' %}
+
+                      <button disabled class="btn btn-icon btn-light-warning fw-bolder pulse pulse-warning" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="kt_activities_toggle">
+                        <span class="position-absolute fs-6">{{ item.result}}</span>
+                        <span class="pulse-ring"></span>
+
+                    {% endif %}
+																			</div>
+																		</td>
+																		<td class="px-0">
+																			<span href="#" class="text-gray-800 fw-bolder text-hover-primary fs-6">{{ item.desc }}</span>
+																			{% if item.details %}
+																		<span class="text-muted fw-bold d-block mt-1">{{ item.details }}</span>
+																		{% endif %}
+																		</td>
+																		
+																
+																	</tr>
+																{% endfor %}
+																	
+																</tbody>
+															</table>
+														</div>
+														<!--end::Table-->
+													</div>
+													<!--end::Tap pane-->
+										
+													{% endfor %}
+												</div>
+											</div>
+											<!--end::Body-->
+										</div>
+										<!--end::Table Widget 2-->
+									</div>
+								</div>
+						
+						
+							</div>
+							<!--end::Container-->
+						</div>
+						<!--end::Content-->
+					</div>
+					<!--end::Main-->
+		{% include 'footer.html' %} 
+				</div>
+				<!--end::Wrapper-->
+				<!--begin::Sidebar-->
+				
+					{% include 'sidebar.html' %} 
+			</div>
+			<!--end::Page-->
+		</div>
+		<!--end::Root-->
+
+
+	{% include 'settings.html' %} 	
+		<!--end::Drawers-->
+{% include 'scrooltotop.html' %} 
+{% include 'chart.html' %} 
+{% endblock Main %}
