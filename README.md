@@ -27,7 +27,7 @@ SecureDock is a centralized platform designed for managing and securing Docker e
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/sharathc213/SecureDock-Centralized-Docker-Security-Management-Platform.git
+   git clone https://github.com/sharathc213/SecureDock.git
    cd SecureDock-Centralized-Docker-Security-Management-Platform
    ```
 
